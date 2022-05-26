@@ -1168,7 +1168,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #45fbb8;
+  background: #7c215c;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2564,7 +2564,7 @@ ul.breadcrumb li + li:last-child {
   }
 }
 body {
-  background-image: url("https://images.unsplash.com/photo-1506967534058-2dc0162a83d6");
+  background-image: url("https://cdn.pixabay.com/photo/2016/11/25/23/15/moon-1859616_1280.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
