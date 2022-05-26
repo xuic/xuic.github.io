@@ -30,15 +30,15 @@
   gtag('config', 'G-EQ81PJN6DF');
 </script>
 
-  <meta name="description" content="前言在 JS 中 Array 有很多好用的方法, 像是 map(), filter() 等等, 但在 Object 中沒有這些方法可以用, 不過我們可以用 Object.entries() 將 object 轉成鍵值對陣列, 再利用 reduce() 將你需要的部分組成新的 object 以此達到 filter 的效果。 而在 ES2019, Object 有了新方法 fromEntries(),">
+  <meta name="description" content="前言在 JS 中 Array 有很多好用的方法, 像是 map(), filter() 等等, 但在 Object 中沒有這些方法可以用, 不過我們可以用 Object.entries() 將物件轉成鍵值對陣列, 再利用 reduce() 將你需要的部分組成新的物件以此達到 filter 的效果。 而在 ES2019, Object 有了新方法 fromEntries(), 讓我們能更方便的將鍵值">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 JavaScript 中使用 Object.entries() 與 Object.fromEntries() 過濾物件">
 <meta property="og:url" content="https://xuic.github.io/posts/20220526/3621085941/index.html">
 <meta property="og:site_name" content="Xuic&#39;s Blog">
-<meta property="og:description" content="前言在 JS 中 Array 有很多好用的方法, 像是 map(), filter() 等等, 但在 Object 中沒有這些方法可以用, 不過我們可以用 Object.entries() 將 object 轉成鍵值對陣列, 再利用 reduce() 將你需要的部分組成新的 object 以此達到 filter 的效果。 而在 ES2019, Object 有了新方法 fromEntries(),">
+<meta property="og:description" content="前言在 JS 中 Array 有很多好用的方法, 像是 map(), filter() 等等, 但在 Object 中沒有這些方法可以用, 不過我們可以用 Object.entries() 將物件轉成鍵值對陣列, 再利用 reduce() 將你需要的部分組成新的物件以此達到 filter 的效果。 而在 ES2019, Object 有了新方法 fromEntries(), 讓我們能更方便的將鍵值">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-05-26T12:30:51.000Z">
-<meta property="article:modified_time" content="2022-05-26T13:14:26.109Z">
+<meta property="article:modified_time" content="2022-05-26T13:49:18.458Z">
 <meta property="article:author" content="Xuic">
 <meta property="article:tag" content="js">
 <meta name="twitter:card" content="summary">
@@ -209,7 +209,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2022-05-26 20:30:51 / 修改時間：21:14:26" itemprop="dateCreated datePublished" datetime="2022-05-26T20:30:51+08:00">2022-05-26</time>
+              <time title="創建時間：2022-05-26 20:30:51 / 修改時間：21:49:18" itemprop="dateCreated datePublished" datetime="2022-05-26T20:30:51+08:00">2022-05-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -232,7 +232,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 JS 中 Array 有很多好用的方法, 像是 <code>map()</code>, <code>filter()</code> 等等, 但在 Object 中沒有這些方法可以用, 不過我們可以用 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/entries"><code>Object.entries()</code></a> 將 object 轉成鍵值對陣列, 再利用 <code>reduce()</code> 將你需要的部分組成新的 object 以此達到 filter 的效果。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 JS 中 Array 有很多好用的方法, 像是 <code>map()</code>, <code>filter()</code> 等等, 但在 Object 中沒有這些方法可以用, 不過我們可以用 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/entries"><code>Object.entries()</code></a> 將物件轉成鍵值對陣列, 再利用 <code>reduce()</code> 將你需要的部分組成新的物件以此達到 filter 的效果。</p>
 <p>而在 ES2019, Object 有了新方法 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries"><code>fromEntries()</code></a>, 讓我們能更方便的將鍵值對陣列轉換回物件。</p>
 <h2 id="使用-Object-fromEntries"><a href="#使用-Object-fromEntries" class="headerlink" title="使用 Object.fromEntries()"></a>使用 Object.fromEntries()</h2><p>假設現在有個紀錄了名字與年齡的物件 <code>people</code>, 我們想挑出其中滿 18 歲的人</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> people = &#123;</span><br><span class="line">  <span class="title class_">Alice</span>: <span class="number">13</span>,</span><br><span class="line">  <span class="title class_">Benjamin</span>: <span class="number">18</span>,</span><br><span class="line">  <span class="title class_">Cindy</span>: <span class="number">15</span>,</span><br><span class="line">  <span class="title class_">Dan</span>: <span class="number">20</span>,</span><br><span class="line">  <span class="title class_">Emilia</span>: <span class="number">21</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -263,13 +263,6 @@
 
 
         
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/posts/20220517/1243066710/" rel="prev" title="Hello World">
-      <i class="fa fa-chevron-left"></i> Hello World
-    </a></div>
-      <div class="post-nav-item"></div>
-    </div>
       </footer>
     
   </article>
@@ -348,7 +341,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">1</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
