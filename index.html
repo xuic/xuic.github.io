@@ -202,10 +202,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">發表於</span>
-              
 
-              <time title="創建時間：2022-05-26 20:30:51 / 修改時間：21:49:18" itemprop="dateCreated datePublished" datetime="2022-05-26T20:30:51+08:00">2022-05-26</time>
+              <time title="創建時間：2022-05-26 20:30:51" itemprop="dateCreated datePublished" datetime="2022-05-26T20:30:51+08:00">2022-05-26</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-05-27 00:33:31" itemprop="dateModified" datetime="2022-05-27T00:33:31+08:00">2022-05-27</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -229,19 +235,14 @@
       
           <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 JS 中 Array 有很多好用的方法, 像是 <code>map()</code>, <code>filter()</code> 等等, 但在 Object 中沒有這些方法可以用, 不過我們可以用 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/entries"><code>Object.entries()</code></a> 將物件轉成鍵值對陣列, 再利用 <code>reduce()</code> 將你需要的部分組成新的物件以此達到 filter 的效果。</p>
 <p>而在 ES2019, Object 有了新方法 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/fromEntries"><code>fromEntries()</code></a>, 讓我們能更方便的將鍵值對陣列轉換回物件。</p>
-<h2 id="使用-Object-fromEntries"><a href="#使用-Object-fromEntries" class="headerlink" title="使用 Object.fromEntries()"></a>使用 Object.fromEntries()</h2><p>假設現在有個紀錄了名字與年齡的物件 <code>people</code>, 我們想挑出其中滿 18 歲的人</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> people = &#123;</span><br><span class="line">  <span class="title class_">Alice</span>: <span class="number">13</span>,</span><br><span class="line">  <span class="title class_">Benjamin</span>: <span class="number">18</span>,</span><br><span class="line">  <span class="title class_">Cindy</span>: <span class="number">15</span>,</span><br><span class="line">  <span class="title class_">Dan</span>: <span class="number">20</span>,</span><br><span class="line">  <span class="title class_">Emilia</span>: <span class="number">21</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我們可以使用 <code>Object.entries()</code> 將 people 轉換成鍵值對陣列, 這樣就能夠使用 Array 的 <code>filter()</code> 將物件用需要的條件過濾, 再使用 <code>Object.fromEntries()</code> 把鍵值對陣列轉換回物件。</p>
-<p>寫成一行的話就像下面這樣: </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> adult = <span class="title class_">Object</span>.<span class="title function_">fromEntries</span>(<span class="title class_">Object</span>.<span class="title function_">entries</span>(people).<span class="title function_">filter</span>(<span class="function">(<span class="params">[name, age]</span>) =&gt;</span> age &gt;= <span class="number">18</span>))</span><br></pre></td></tr></table></figure>
-
-<p>不過老實說寫成一行的話可讀性不怎麼好, 特別是當條件複雜一點的時候就更混亂了。<br>可以把每個步驟拆分開來, 寫成下面的形式:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> keyValuePairs = <span class="title class_">Object</span>.<span class="title function_">entries</span>(people)</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">isAdult</span> = age =&gt; age &gt;= <span class="number">18</span></span><br><span class="line"><span class="keyword">const</span> filteredPairs = keyValuePairs.<span class="title function_">filter</span>(<span class="function">(<span class="params">[name, age]</span>) =&gt;</span> <span class="title function_">isAdult</span>(age))</span><br><span class="line"><span class="keyword">const</span> adult = <span class="title class_">Object</span>.<span class="title function_">fromEntries</span>(filteredPairs)</span><br></pre></td></tr></table></figure>
-
-<p>或是使用 lodash 的 <a target="_blank" rel="noopener" href="https://lodash.com/docs/#flow"><code>_.flow</code></a></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">isAdult</span> = age =&gt; age &gt;= <span class="number">18</span></span><br><span class="line"><span class="keyword">const</span> adult = _.<span class="title function_">flow</span>([</span><br><span class="line">  <span class="title class_">Object</span>.<span class="property">entries</span>,</span><br><span class="line">  <span class="function"><span class="params">arr</span> =&gt;</span> arr.<span class="title function_">filter</span>(<span class="function">(<span class="params">[name, age]</span>) =&gt;</span> <span class="title function_">isAdult</span>(age)),</span><br><span class="line">  <span class="title class_">Object</span>.<span class="property">fromEntries</span></span><br><span class="line">])(people)</span><br><span class="line"><span class="comment">// &#123;Benjamin: 18, Dan: 20, Emilia: 21&#125;</span></span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/20220526/3621085941/" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
