@@ -38,7 +38,7 @@
 <meta property="og:description" content="前言Observable 是 RxJS 中最重要的觀念 ( 可能沒有之一 )，但在介紹 Observable 前，先讓我們看看什麼是資料的 Pull 與 Push。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-06-09T10:35:46.000Z">
-<meta property="article:modified_time" content="2022-06-09T10:58:41.368Z">
+<meta property="article:modified_time" content="2022-06-09T11:08:58.372Z">
 <meta property="article:author" content="Xuic">
 <meta property="article:tag" content="rxjs">
 <meta name="twitter:card" content="summary">
@@ -209,7 +209,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2022-06-09 18:35:46 / 修改時間：18:58:41" itemprop="dateCreated datePublished" datetime="2022-06-09T18:35:46+08:00">2022-06-09</time>
+              <time title="創建時間：2022-06-09 18:35:46 / 修改時間：19:08:58" itemprop="dateCreated datePublished" datetime="2022-06-09T18:35:46+08:00">2022-06-09</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -237,7 +237,7 @@
 
 <h2 id="Pull-vs-Push"><a href="#Pull-vs-Push" class="headerlink" title="Pull vs Push"></a>Pull vs Push</h2><p>拉 ( Pull ) 與 推 ( Push ) 是關於生產者 ( Producer ) 與消費者 ( Consumer ) 之間資料傳遞的兩種模式。</p>
 <h3 id="什麼是拉"><a href="#什麼是拉" class="headerlink" title="什麼是拉?"></a>什麼是拉?</h3><p>假設我寫的一段 &quot;程式碼&quot; 呼叫了函數 &quot;<code>foo()</code>&quot;，這個情況下 &quot;該程式碼&quot; 就是 &quot;消費者&quot;，而函數 &quot;<code>foo()</code>&quot; 就是 &quot;生產者&quot;，程式碼主動地從 <code>foo()</code> 把資料 ( foo 的回傳值 ) &quot;拉&quot; 來使用。</p>
-<p>而 JS 中除了 function，ES6 中引入的 generator function 也是一種 Pull System，透過 generator 回傳的 iterator，我們可以呼叫 <code>iterator.next()</code> &quot;拉&quot; 出多個值來使用。</p>
+<p>而 JS 中除了 function，ES6 引入的 generator function 也是一種 Pull System，透過 generator 回傳的 iterator，我們可以呼叫 <code>iterator.next()</code> &quot;拉&quot; 出多個值來使用。</p>
 <h3 id="什麼是推"><a href="#什麼是推" class="headerlink" title="什麼是推?"></a>什麼是推?</h3><p>相較於拉模式時 &quot;消費者&quot; 可以主動地決定什麼時候把資料從 &quot;生產者&quot; 那邊 &quot;拉&quot; 來用，在推模式時則是 &quot;生產者&quot; 主動地決定什麼把資料 &quot;推&quot; 給 &quot;消費者&quot;。</p>
 <p>直觀地比喻的話，推模式就像是 &quot;消費者&quot; 只能跟 &quot;生產者&quot; 說：「嘿！我需要你吐點什麼 ( data ) 給我，我拿到東西 ( data ) 才能繼續做事 ( 執行 callback )」</p>
 <p>如果用過 JS 的 Promise 的話應該能夠很好的體會。使用 Promise 時我們可以透過 <code>then()</code> 指定 resolved 和 rejected 時的 callback，但並不能決定什麼時候執行 callback，而是由 Promise 控制。</p>
