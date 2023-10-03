@@ -2832,12 +2832,9 @@ header.header {
   max-width: unset;
   box-sizing: border-box;
 }
-body {
-  background: url("/images/World_8_map-op80.png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: 50% 50%;
+span.hint--top:hover:after,
+span.hint--top:hover:before {
+  display: none;
 }
 .main-inner {
   opacity: 0.9;
